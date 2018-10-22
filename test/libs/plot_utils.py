@@ -344,13 +344,17 @@ def get_result_on_test_image(pred_bbox, pred_cat_id, get_label_fn, im):
     add_text_to_subplot(ax, (pred_bbox[0], pred_bbox[1]), 'Pred:'+get_label_fn(tensor_to_scalar(pred_cat_id[0])))
     hide_subplot_axes(ax)
 
-    canvas = FigureCanvas(fig)
-    output = io.BytesIO()
-    canvas.print_png(output)
+    #canvas = FigureCanvas(fig)
+    #output = io.BytesIO()
+    #canvas.print_png(output)
     
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', bbox_inches='tight')
+    buf.seek(0)
+
     #plt.tight_layout()
     #buf = io.BytesIO()
     #plt.savefig(buf, format='png', bbox_inches='tight')
     #s = buf.getvalue()
     #buf.close()
-    return output
+    return buf
